@@ -1,0 +1,553 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:local="clr-namespace:ModernWPF"
+	xmlns:ctrl="clr-namespace:ModernWPF.Controls"
+    xmlns:conv="clr-namespace:ModernWPF.Converters"
+    xmlns:resx="clr-namespace:ModernWPF.Resources"
+    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/ModernWPF;component/Themes/ModernStylesExplicit.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style x:Key="ModernFocusVisualDashed">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid>
+                        <Rectangle x:Name="FocusVisualWhite"
+                                   IsHitTestVisible="False"
+                                   Stroke="{DynamicResource FocusVisualWhiteStrokeThemeBrush}"
+                                   StrokeEndLineCap="Square"
+                                   StrokeDashArray="1,1"
+                                   StrokeDashOffset="1.5"
+                                   SnapsToDevicePixels="True"/>
+                        <Rectangle x:Name="FocusVisualBlack"
+                                   IsHitTestVisible="False"
+                                   Stroke="{DynamicResource FocusVisualBlackStrokeThemeBrush}"
+                                   StrokeEndLineCap="Square"
+                                   StrokeDashArray="1,1"
+                                   StrokeDashOffset="0.5"
+                                   SnapsToDevicePixels="True"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctrl:ModernContentControl">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:ModernContentControl">
+                    <Border x:Name="root">
+                        <ContentPresenter x:Name="PART_Content" 
+                                          Cursor="{TemplateBinding Cursor}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="ctrl:ControlBox">
+        <Setter Property="ButtonStyle" Value="{StaticResource ModernControlButton}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:ControlBox">
+                    <ControlTemplate.Resources>
+                        <local:WindowCommands x:Key="WindowCommands"></local:WindowCommands>
+                    </ControlTemplate.Resources>
+                    <Border VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Visibility="{Binding Path=(local:Chrome.ShowControlBoxes), RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}, Converter={x:Static conv:BoolVisibleConverter.Instance}}"
+                            >
+                        <StackPanel Orientation="Horizontal" DataContext="{Binding Source={StaticResource WindowCommands}}"
+                            >
+                            <!--<TextBlock Text="some text"></TextBlock>-->
+                            <Button x:Name="ButtonMin"
+                                Command="{Binding Path=MinimizeCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                ToolTip="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdMinimize], Mode=OneWay}"
+                                Style="{TemplateBinding ButtonStyle}">
+                                <TextBlock Text="0" Style="{DynamicResource MarlettGlyph}"></TextBlock>
+
+                            </Button>
+                            <Button x:Name="ButtonMax"
+                                Command="{Binding Path=MaximizeCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                ToolTip="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdMaximize], Mode=OneWay}"
+                                Style="{TemplateBinding ButtonStyle}">
+                                <TextBlock Text="1" Style="{DynamicResource MarlettGlyph}"></TextBlock>
+
+                            </Button>
+
+                            <Button x:Name="ButtonRestore"
+                                Command="{Binding Path=RestoreCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                ToolTip="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdRestore], Mode=OneWay}"
+                                Style="{TemplateBinding ButtonStyle}">
+                                <TextBlock Text="2" Style="{DynamicResource MarlettGlyph}"></TextBlock>
+
+                            </Button>
+
+                            <Button x:Name="ButtonClose"
+                                Command="{Binding Path=CloseCommand}"
+                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                                ToolTip="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdClose], Mode=OneWay}"
+                                Style="{TemplateBinding ButtonStyle}">
+                                <TextBlock Text="r" Style="{DynamicResource MarlettGlyph}"></TextBlock>
+
+                                </Button>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--<Style TargetType="ctrl:BorderWindow">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:BorderWindow">
+                    <Border Padding="{TemplateBinding BorderThickness}" Background="#01000000">
+                        <Grid>
+                            <Border x:Name="lineBorder" Margin="-1" BorderThickness="1">
+                            </Border>
+                            <Border x:Name="lineBorder2" Margin="-1" BorderThickness="1">
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsContentActive" Value="True">
+                            -->
+    <!--use 2 borders to make it darker on active-->
+    <!--
+                            <Setter TargetName="lineBorder" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                            <Setter TargetName="lineBorder" Property="Effect" >
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="8" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="lineBorder2" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                            <Setter TargetName="lineBorder2" Property="Effect" >
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth=".5" BlurRadius="8" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsContentActive" Value="False">
+                            <Setter TargetName="lineBorder" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveBorderBrush}"/>
+                            <Setter TargetName="lineBorder" Property="Effect" >
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="0" BlurRadius="8" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveBorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="lineBorder2" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
+
+    <Style TargetType="{x:Type ctrl:BorderWindow}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ctrl:BorderWindow}">
+                    <Canvas Background="#01000000">
+                        <Line x:Name="Line1" 
+                              RenderOptions.EdgeMode="Unspecified" 
+                              StrokeThickness="1" 
+                              Stroke="{TemplateBinding BorderBrush}" 
+                              SnapsToDevicePixels="True">
+                        </Line>
+                        <Line x:Name="Line2" Opacity=".8"
+                              RenderOptions.EdgeMode="Unspecified" 
+                              StrokeThickness="1" 
+                              Stroke="{TemplateBinding BorderBrush}" 
+                              SnapsToDevicePixels="True">
+                        </Line>
+                    </Canvas>
+                    <ControlTemplate.Triggers>
+                        <!--active states-->
+                        <Trigger Property="Side" Value="Left">
+                            <Setter TargetName="Line1" Property="Y2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Canvas.Left" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Canvas.Top" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="180" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter TargetName="Line2" Property="Y2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Canvas.Left" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Canvas.Top" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="180" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="Side" Value="Top">
+                            <Setter TargetName="Line1" Property="X2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Canvas.Top" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Canvas.Left" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="90" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter TargetName="Line2" Property="X2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Canvas.Top" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Canvas.Left" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="90" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="Side" Value="Right">
+                            <Setter TargetName="Line1" Property="Y2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Canvas.Top" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="0" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter TargetName="Line2" Property="Y2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Canvas.Top" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="0" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <Trigger Property="Side" Value="Bottom">
+                            <Setter TargetName="Line1" Property="X2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Canvas.Left" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="270" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter TargetName="Line2" Property="X2" Value="{Binding BorderLength, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Canvas.Left" Value="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                            <Setter TargetName="Line2" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="270" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
+                        <!--inactive states-->
+                        <Trigger Property="IsContentActive" Value="False">
+                            <Setter TargetName="Line1" Property="Stroke" Value="{Binding InactiveBorderBrush, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsContentActive" Value="False"></Condition>
+                                <Condition Property="Side" Value="Left"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="180" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveBorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Line2" Property="Visibility" Value="Collapsed"></Setter>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsContentActive" Value="False"></Condition>
+                                <Condition Property="Side" Value="Top"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="90" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveBorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Line2" Property="Visibility" Value="Collapsed"></Setter>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsContentActive" Value="False"></Condition>
+                                <Condition Property="Side" Value="Right"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="0" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveBorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Line2" Property="Visibility" Value="Collapsed"></Setter>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsContentActive" Value="False"></Condition>
+                                <Condition Property="Side" Value="Bottom"></Condition>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="Line1" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Direction="270" ShadowDepth="1.5" BlurRadius="{Binding PadSize, RelativeSource={RelativeSource TemplatedParent}}" Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveBorderBrush.Color}"></DropShadowEffect>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Line2" Property="Visibility" Value="Collapsed"></Setter>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctrl:DialogControl">
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource ModernForeground}"/>
+        <Setter Property="Background" Value="{DynamicResource ModernBackground}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:DialogControl">
+                    <Border Background="{TemplateBinding Background}"
+                            Margin="{TemplateBinding Margin}"
+                            Padding="{TemplateBinding Padding}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctrl:MessageBoxControl">
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="Foreground" Value="{DynamicResource ModernForeground}"/>
+        <Setter Property="Background" Value="{DynamicResource ModernBackground}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="DisableTarget" Value="False"/>
+        <Setter Property="CloseOnEscapeKey" Value="True"/>
+        <Setter Property="Padding" Value="0 20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:MessageBoxControl">
+                    <Border Background="{TemplateBinding Background}"
+                            Margin="{TemplateBinding Margin}"
+                            Padding="{TemplateBinding Padding}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <Grid MinWidth="{TemplateBinding ContentMinWidth}" 
+                              MaxWidth="{TemplateBinding ContentMaxWidth}" 
+                              HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <DockPanel SnapsToDevicePixels="True" UseLayoutRounding="True">
+                                <DockPanel.Resources>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Width" Value="32"></Setter>
+                                        <Setter Property="Height" Value="32"></Setter>
+                                        <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"></Setter>
+                                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                        <Setter Property="DockPanel.Dock" Value="Left"></Setter>
+                                    </Style>
+                                </DockPanel.Resources>
+
+                                <Image x:Name="PART_iconWarning" Source="/ModernWPF;component/Assets/warning.png"></Image>
+
+                                <Image x:Name="PART_iconInfo" Source="/ModernWPF;component/Assets/info.png"></Image>
+
+                                <Image x:Name="PART_iconError" Source="/ModernWPF;component/Assets/error.png"></Image>
+
+                                <Image x:Name="PART_iconQuest" Source="/ModernWPF;component/Assets/question.png"></Image>
+
+                                <TextBlock x:Name="PART_txtTitle" TextTrimming="CharacterEllipsis" 
+                                           FontSize="{DynamicResource WindowTitleFontSize}" Margin="2 0"
+                                           FontWeight="Light"
+                                           VerticalAlignment="Center"></TextBlock>
+                            </DockPanel>
+
+                            <ContentPresenter Grid.Row="1" />
+
+                            <StackPanel x:Name="PART_btnPanel" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <StackPanel.Resources>
+                                    <Style TargetType="Button" BasedOn="{StaticResource ModernButton}">
+                                        <Setter Property="MinWidth" Value="80"></Setter>
+                                        <Setter Property="Margin" Value="4 0 0 0"></Setter>
+                                    </Style>
+                                </StackPanel.Resources>
+
+                                <Button Content="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdOK], Mode=OneWay}" x:Name="PART_btnOK"></Button>
+                                <Button Content="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdYes], Mode=OneWay}" x:Name="PART_btnYes"></Button>
+                                <Button Content="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdNo], Mode=OneWay}" x:Name="PART_btnNo"></Button>
+                                <Button Content="{Binding Source={x:Static resx:CommandTextBinder.Instance}, Path=[CmdCancel], Mode=OneWay}" x:Name="PART_btnCancel" IsCancel="True" ></Button>
+                            </StackPanel>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctrl:DialogControlContainer">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{DynamicResource OverlayBackground}"/>
+        <Setter Property="IsHitTestVisible" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:DialogControlContainer">
+                    <Border Background="{TemplateBinding Background}"
+                            KeyboardNavigation.TabNavigation="Cycle"
+                            KeyboardNavigation.ControlTabNavigation="Cycle"
+                            KeyboardNavigation.DirectionalNavigation="Cycle"
+                            Opacity="0">
+                        <ContentPresenter x:Name="PART_Content" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="WhateverStates">
+                                <VisualState x:Name="IsClosed">
+                                    <Storyboard>
+                                        <DoubleAnimation To="0" Storyboard.TargetProperty="Opacity" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="IsOpen">
+                                    <Storyboard>
+                                        <DoubleAnimation To="1" Storyboard.TargetProperty="Opacity" Duration="0"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.25" To="IsOpen">
+                                    </VisualTransition>
+                                    <VisualTransition GeneratedDuration="0:0:0.25" To="IsClosed">
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="HasDialogOpen" Value="True">
+                <Setter Property="IsHitTestVisible" Value="True"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ctrl:AppButton">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource ModernFocusVisualDashed}"/>
+        <Setter Property="local:Chrome.IsHitTestVisible" Value="true"/>
+        <Setter Property="Background" Value="{DynamicResource AppBarItemBackgroundThemeBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource AppBarItemForegroundThemeBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AppBarItemForegroundThemeBrush}"/>
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="2 0" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize" Value="{DynamicResource TinyFontSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctrl:AppButton">
+                    <Grid Background="#01000000">
+                        <StackPanel Orientation="{TemplateBinding Orientation}"
+                                    Margin="{TemplateBinding Padding}">
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Ellipse StrokeThickness="{Binding Path=BorderThickness, RelativeSource={RelativeSource TemplatedParent}, Converter={x:Static conv:ThicknessToDoubleConverter.Instance}}" 
+                                         Stroke="{TemplateBinding BorderBrush}"
+                                         Fill="{TemplateBinding Background}"
+                                         VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                         x:Name="Circle"/>
+                                <Viewbox x:Name="contentSizer" Width="48" Height="48"
+                                     VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ContentPresenter x:Name="ContentPresenter" 
+                                                      Content="{TemplateBinding Content}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                </Viewbox>
+                            </Grid>
+                            <AccessText Text="{TemplateBinding Text}" TextWrapping="Wrap" TextAlignment="Center"
+                                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                                        Foreground="{DynamicResource AppBarItemForegroundThemeBrush}"
+                                        Visibility="{Binding Path=Text, Converter={x:Static conv:NullEmptyCollapsedConverter.Instance}, RelativeSource={RelativeSource Self}}"
+                                        Margin="2 0"/>
+                        </StackPanel>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ButtonSize" Value="Small">
+                            <Setter TargetName="contentSizer" Property="Width" Value="26"/>
+                            <Setter TargetName="contentSizer" Property="Height" Value="26"/>
+                        </Trigger>
+                        <Trigger Property="TextSize" Value="Large">
+                            <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonSize" Value="Large"/>
+                                <Condition Property="Orientation" Value="Vertical"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Width" Value="76"/>
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="ButtonSize" Value="Small"/>
+                                <Condition Property="Orientation" Value="Vertical"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Width" Value="50"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource AppBarItemPointerOverBackgroundThemeBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource AppBarItemPointerOverForegroundThemeBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <!--<Setter Property="Background" Value="{DynamicResource AppBarItemForegroundThemeBrush}" />-->
+                <Setter Property="Background" Value="{DynamicResource ModernAccent}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ModernAccent}" />
+                <Setter Property="Foreground" Value="{DynamicResource AppBarItemPressedForegroundThemeBrush}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="false"/>
+                    <Condition Property="CollapseOnDisable" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Visibility" Value="Collapsed" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsEnabled" Value="false"/>
+                    <Condition Property="CollapseOnDisable" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Opacity" Value=".4" />
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

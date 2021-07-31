@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{77D86B3D-EE36-4E4F-951D-A220DE7FBCCB}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ModernWPF</RootNamespace>
+    <AssemblyName>ModernWPF</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\ModernWPF.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Sign.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonWin32, Version=2.0.0.0, Culture=neutral, PublicKeyToken=a0a4edcfe233918d, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\CommonWin32.2.0.5.6\lib\net35-Client\CommonWin32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accent.cs" />
+    <Compile Include="Animation.cs" />
+    <Compile Include="Controls\AnimatedScrollViewer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\BorderManager.cs" />
+    <Compile Include="Controls\BorderSide.cs" />
+    <Compile Include="Controls\BorderWindow.cs" />
+    <Compile Include="Controls\ControlBox.cs" />
+    <Compile Include="Controls\AppButton.cs" />
+    <Compile Include="Controls\LegacyBorderManager.cs" />
+    <Compile Include="Controls\LegacyBorderWindow.cs" />
+    <Compile Include="Controls\DialogControl.cs" />
+    <Compile Include="Controls\DialogControlContainer.cs" />
+    <Compile Include="Controls\MessageBoxControl.cs" />
+    <Compile Include="Controls\ModernContentControl.cs" />
+    <Compile Include="Controls\ModernMessageBox.xaml.cs">
+      <DependentUpon>ModernMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TileView.cs" />
+    <Compile Include="Converters\AppIconImageConverter.cs" />
+    <Compile Include="Converters\BoolNotConverter.cs" />
+    <Compile Include="Converters\FileIconConverter.cs" />
+    <Compile Include="Converters\IsSmallFontConverter.cs" />
+    <Compile Include="Converters\BoolVisibleConverter.cs" />
+    <Compile Include="Converters\MultiBoolVisibleConverter.cs" />
+    <Compile Include="Converters\NullEmptyCollapsedConverter.cs" />
+    <Compile Include="Converters\SingleToEnumerableConverter.cs" />
+    <Compile Include="Converters\TextCaseConverter.cs" />
+    <Compile Include="Converters\ThicknessToDoubleConverter.cs" />
+    <Compile Include="Converters\ThicknessZeroSideConverter.cs" />
+    <Compile Include="Converters\TreeDepthLeftMarginConverter.cs" />
+    <Compile Include="Converters\WindowCaptionHeightConverter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GridViewSortParameter.cs" />
+    <Compile Include="ListViewUI.cs" />
+    <Compile Include="HSLColor.cs" />
+    <Compile Include="MenuItemUI.cs" />
+    <Compile Include="Messages\AppCloseMessage.cs" />
+    <Compile Include="Messages\AppClosingMessage.cs" />
+    <Compile Include="Messages\MessageBoxMessage.cs" />
+    <Compile Include="Messages\ChooseFileMessage.cs" />
+    <Compile Include="Messages\ChooseFolderMessage.cs" />
+    <Compile Include="Messages\MessageBase.cs" />
+    <Compile Include="Messages\OpenExplorerMessage.cs" />
+    <Compile Include="Messages\RefreshCommandsMessage.cs" />
+    <Compile Include="ModernExtensions.cs" />
+    <Compile Include="Chrome.cs" />
+    <Compile Include="ModernTheme.cs" />
+    <Compile Include="MouseEvents.cs" />
+    <Compile Include="Native\User32Ex.cs" />
+    <Compile Include="PlatformInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Resources\CommandText.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommandText.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\CommandTextBinder.cs" />
+    <Compile Include="ScrollViewerUI.cs" />
+    <Compile Include="TextBoxUI.cs" />
+    <Compile Include="TextCommands.cs" />
+    <Compile Include="WindowCommands.cs" />
+    <EmbeddedResource Include="Resources\CommandText.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommandText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CommandText.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommandText.zh-Hans.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CommandText.zh-Hant.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="ModernWPF.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Sign.snk" />
+    <Page Include="Controls\ModernMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Animations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ModernBaseDesktop.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ModernDark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernLight.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernStylesExplicit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\ModernStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <None Include="Themes\References\wpf\aero2.normalcolor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\References\winrt\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\References\winrt\themeresources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Themes\References\wpf\aero.normalcolor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Themes\References\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="CustomDictionary.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

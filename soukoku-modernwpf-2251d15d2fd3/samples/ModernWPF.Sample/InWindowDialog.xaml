@@ -1,0 +1,34 @@
+﻿<modern:DialogControl x:Class="ModernWPF.Sample.InWindowDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                      xmlns:modern="http://modernwpf"
+                      mc:Ignorable="d" 
+                      d:DesignHeight="300" d:DesignWidth="300"
+                      VerticalAlignment="Center">
+    <Grid Margin="8" MaxWidth="400" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Dialog Title" FontSize="28" FontWeight="Thin" Margin="0 0 0 8"></TextBlock>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock x:Name="infolabel" TextWrapping="Wrap" VerticalAlignment="Top" Margin="8">TBD</TextBlock>
+            <TextBox x:Name="mybox" modern:TextBoxUI.WatermarkText="a textbox!" KeyDown="mybox_KeyDown"></TextBox>
+            <StackPanel Margin="8">
+                <RadioButton x:Name="btnTop" Content="Top" Click="btnTop_Click"></RadioButton>
+                <RadioButton x:Name="btnCenter" Content="Center" Click="btnCenter_Click" IsChecked="True"></RadioButton>
+                <RadioButton x:Name="btnBottom" Content="Bottom" Click="btnBottom_Click"></RadioButton>
+                <RadioButton x:Name="btnStretch" Content="Stretch" Click="btnStretch_Click"></RadioButton>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="{Binding Source={x:Static modern:CommandTextBinder.Instance}, Path=[CmdOK], Mode=OneWay}" x:Name="btnOk" IsDefault="True" MinWidth="75" Click="btnOk_Click" ></Button>
+            <Button Content="{Binding Source={x:Static modern:CommandTextBinder.Instance}, Path=[CmdCancel], Mode=OneWay}" x:Name="btnCancel" MinWidth="75" Click="btnCancel_Click" ></Button>
+        </StackPanel>
+    </Grid>
+</modern:DialogControl>
